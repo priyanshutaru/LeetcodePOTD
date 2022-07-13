@@ -1,0 +1,67 @@
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+ 
+
+Example 1:
+
+
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
+Example 2:
+
+Input: root = [1]
+Output: [[1]]
+Example 3:
+
+Input: root = []
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 2000].
+-1000 <= Node.val <= 1000
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@..................Solution.....................@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@222
+
+class Solution {
+public:
+
+    vector<vector<int>> levelOrder(TreeNode* root)
+    {
+        
+        deque<TreeNode*> q;
+        vector<vector<int>> arr;
+        if(root==NULL)
+        {
+            return arr;
+        }
+        vector<int> a={root->val};
+        arr.push_back(a);
+        q.push_back(root);
+        while(q.size()!=0)
+        {
+            int s=q.size();
+            vector<int> temp;
+            for(int i=1;i<=s;i++)
+            {
+            if(q[0]->left!=NULL)
+            {
+                temp.push_back(q[0]->left->val);
+            q.push_back(q[0]->left);
+            }
+            if(q[0]->right!=NULL)
+            {
+                temp.push_back(q[0]->right->val);
+            q.push_back(q[0]->right);
+            }
+            q.pop_front();
+            }
+            if(temp.size()>0)
+            arr.push_back(temp);
+        }
+        return arr;
+    }
+};

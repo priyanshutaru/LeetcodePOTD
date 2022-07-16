@@ -1,0 +1,56 @@
+There is an m x n grid with a ball. The ball is initially at the position [startRow, startColumn]. You are allowed to move the ball to one of the four adjacent cells in the grid (possibly out of the grid crossing the grid boundary). You can apply at most maxMove moves to the ball.
+
+Given the five integers m, n, maxMove, startRow, startColumn, return the number of paths to move the ball out of the grid boundary. Since the answer can be very large, return it modulo 109 + 7.
+
+ 
+
+Example 1:
+
+
+Input: m = 2, n = 2, maxMove = 2, startRow = 0, startColumn = 0
+Output: 6
+Example 2:
+
+
+Input: m = 1, n = 3, maxMove = 3, startRow = 0, startColumn = 1
+Output: 12
+ 
+
+Constraints:
+
+1 <= m, n <= 50
+0 <= maxMove <= 50
+0 <= startRow < m
+0 <= startColumn < n
+
+
+
+
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@...................Solution.....................@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+class Solution {
+public:
+    static const int MOD = 1e9+7; 
+    vector<int>cor = {0,1,0,-1,0};
+    int solve(int i,int j,int move,vector<vector<vector<int>>>&dp,int &n,int &m){
+        if(i<0 || j<0 || i>=n || j>=m){
+            return 1;
+        }
+        if(dp[i][j][move] != -1)return dp[i][j][move];
+        int ans = 0;
+        for(int p=0;p+1<cor.size();p++){
+            if(move>0){
+                ans = (ans+solve(i+cor[p],j+cor[p+1],move-1,dp,n,m))%MOD;
+            }
+        }
+        return dp[i][j][move] = ans;
+    }
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        vector<vector<vector<int>>>dp(m,vector<vector<int>>(n,vector<int>(maxMove+1,-1)));
+        return solve(startRow,startColumn,maxMove,dp,m,n);
+    }
+};

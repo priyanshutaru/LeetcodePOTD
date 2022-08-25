@@ -1,0 +1,59 @@
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+Each letter in magazine can only be used once in ransomNote.
+
+ 
+
+Example 1:
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+Example 2:
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+Example 3:
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
+ 
+
+Constraints:
+
+1 <= ransomNote.length, magazine.length <= 105
+ransomNote and magazine consist of lowercase English letters.
+Accepted
+537,720
+Submissions
+935,028
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2...................Solution................@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        map<char,int> m1,m2;
+        for(auto i: ransomNote)
+        {
+            m1[i]++;
+            
+        }
+          for(auto i: magazine)
+        {
+            m2[i]++;
+            
+        }
+        for(auto i:ransomNote)
+        {
+            if(m1[i]>m2[i])
+            {
+               
+                return 0;
+            }
+        }
+        return 1;
+        
+    }
+};
